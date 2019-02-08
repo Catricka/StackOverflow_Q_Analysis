@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<title>StackOverflow Questions Analysis</title>
+
+
+		<link href='materialize/css/materialize.min.css' rel='stylesheet' type='text/css'>
+		<link href='materialize/css/materialize-rtl.css' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="materialize/css/style.css">
+	    <script src="materialize/js/jquery.min.js"></script>
+	    <script src="materialize/js/materialize.min.js"></script>
+	    <script src="materialize/js/ajax.js"></script>
+	</head>
+	<body class="body">
+        <div class="container"> 
+        <div class="row">
+            <center>
+        <h3>StackOverflow Questions Analysis</h3>
+                <br><hr><br>
+                <a  class="waves-effect waves-light btn modal-trigger" href="#modal1" style= "text-align:center">Sort By Voting</a>
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Sort By Voting</h4>
+      <iframe src="VotingTitles.txt" frameborder="0" height="300" width="100%"></iframe>
+        
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal1next">Details</a>
+    </div>
+  </div>
+  <div id="modal1next" class="modal">
+    <div class="modal-content">
+      <h4>Details</h4>
+        <iframe src="VotingInfo.txt" frameborder="0" height="300" width="100%"></iframe>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">close</a>
+    </div>
+  </div>
+<a  class="waves-effect waves-light btn modal-trigger" href="#modal12" >Sort By Creation</a>
+  <div id="modal12" class="modal">
+    <div class="modal-content">
+      <h4 style= "text-align:center">Sort By Creation</h4>
+        <iframe src="CreationTitles.txt" frameborder="0" height="300" width="100%"></iframe>
+        
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal12next">Details</a>
+    </div>
+  </div>
+  <div id="modal12next" class="modal">
+    <div class="modal-content">
+      <h4>Details</h4>
+        <iframe src="CreationInfo.txt" frameborder="0" height="300" width="100%"></iframe>
+        
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">close</a>
+    </div>
+  </div>
+         </center>   
+        </div>
+        </div>
+	</body>
+</html>

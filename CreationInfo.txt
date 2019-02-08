@@ -1,0 +1,632 @@
+====================  Details of Question number 1: ====================
+Tags = java,oop,
+owner's info : 
+{
+reputation=1
+user_id=11034725
+user_type=registered
+profile_image=https://www.gravatar.com/avatar/99375ca170f0bf4f58bfaf5eca0ef240?s=128&d=identicon&r=PG&f=1
+display_name=menun
+link=https://stackoverflow.com/users/11034725/menun
+}
+is answered =False
+views =9
+score =0
+last_activity_date =1549645617
+creation_date =1549645617
+question_id =54597208
+link = https://stackoverflow.com/questions/54597208/processing-inside-method-vs-retrieving
+title = Processing inside method vs retrieving
+body =I would like to know your opinion on this problem:
+
+We have races (represented by the class Race), races have different types of runners (represented by superclass Runner) and every runner belongs to a team.
+
+The race is won by the team which has the highest score (score is calculated as the sum of the scores of the team's players).
+
+class Race{
+   private List&lt;Runner&gt; runner;
+}
+
+class abstract Runner{
+   private String name;
+   private String team;
+
+   protected abstract Integer getPoints();
+}
+
+class RunnerType1 extends Runner{
+   // ...
+
+   protected Integer getPoints() {
+     // ...
+   }
+}
+
+class RunnerType2 extends Runner{
+   // ...
+
+   protected Integer getPoints() {
+     // ...
+   }
+}
+
+public class Stats{
+   private List&lt;Races&gt; races;
+
+
+}
+
+
+We want to 
+
+
+Get the winning team for every race.
+
+Would you store the winning team in a new property "String winner" or would you iterate over runners every time the method getWinner() is called?
+Get the runner with the highest score in the entire set of races.
+
+You would have to iterate over the races list but: would you create a method getPlayersStats() returning a Map (player name -> points) or would you get the players array of the race and do all the business logic outside of the Race class?
+
+
+Thanks in advance.
+
+====================  Details of Question number 2: ====================
+Tags = java,object,javafx,
+owner's info : 
+{
+reputation=1
+user_id=11034741
+user_type=registered
+profile_image=https://www.gravatar.com/avatar/fbb72f0493568e8f1aff7fc3f4126f4a?s=128&d=identicon&r=PG&f=1
+display_name=VeggieMan
+link=https://stackoverflow.com/users/11034741/veggieman
+}
+is answered =False
+views =2
+score =0
+last_activity_date =1549645597
+creation_date =1549645597
+question_id =54597203
+link = https://stackoverflow.com/questions/54597203/the-type-must-implement-the-inherited-abstract-method-application-startstage
+title = &quot;The type must implement the inherited abstract method Application.start(Stage)&quot; while method is both included and overridden
+body =Java FX noob, but I've tried all I know and can find from others on the web. I've verified the JVM to be at version 1.8 and cleaned/rebuilt the entire package.
+
+Trying to make a program that displays 3 objects one after the other, forever on an empty background, until program crash/close, within a class called Painter. 
+It is called/driven by a Controller class within the same package.
+
+The methods in Painter are start(), run() and main(), the first two have errors as well as the class declaration itself. 
+
+The class declaration has the titular error.
+run() is overridden but still has the complaint "must override or inherit a supertype method". 
+start() has a few errors. I attempted to make it implement Application directly but it still complains about it.
+
+package anonAssignment2; //@author anon, course#
+
+import javafx.scene.canvas.GraphicsContext;                 
+import javafx.scene.*;
+import javafx.scene.paint.*;                      
+import javafx.scene.canvas.*;                     
+import javafx.scene.canvas.Canvas;
+
+
+import javafx.application.Application;              
+import javafx.scene.Scene;                      
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import javafx.scene.text.*;
+import javafx.scene.paint.Color;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.animation.KeyFrame;                        
+//Handles animation timing
+import javafx.util.Duration;
+
+import java.util.Timer;     // -&gt;
+import java.lang.*;         //Thread.sleep(int milliseconds)
+
+
+/* 
+ * Painter- handles shape drawing
+ * Extends application to be within spec, called by controller
+ * Implements EventHandler for 3000ms changing of shape
+ */
+
+public class Painter extends Application {
+
+    public static void main(String[] args) {
+            Application.launch(args);
+    }
+
+
+    Painter painter = new Painter();
+
+    Pane pane = new Pane();
+
+    private Canvas canvas = new Canvas(300, 300);
+
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+
+
+
+    /** Method to start continuously displaying GUI shapes/objects
+     * 
+     */
+    @Override
+    public void run() { 
+    while(true) {                            
+ //Always true, runs until program killed/crashes
+
+        gc.setStroke(Color.RED);
+        gc.strokeOval(150, 150, 100, 100);  //circle
+        java.lang.Thread.sleep(3000);
+
+        gc.clearRect(100, 100, 100, 100);   //For purposes of this program, blank background, clearing rectangle works
+
+        gc.setStroke(Color.GREEN);
+        gc.strokeRect(100, 100, 100, 100);  //Square
+        java.lang.Thread.sleep(3000);
+
+        gc.clearRect(100, 100, 100, 100);
+
+        gc.setStroke(Color.BLUE);
+        gc.strokeText("Course # and Title", 100, 140);  //Text, approximately centered
+        java.lang.Thread.sleep(3000);
+
+        gc.clearRect(100, 100, 100, 100);
+
+        }
+
+        }
+
+    /**Start command, uses primaryStage instance 
+     * Called by Controller
+     * 
+     */
+
+
+    @Override
+    public void start(Stage primaryStage) implements Application throws Exception {
+    Pane pane = new Pane();
+
+    pane.setPrefWidth(300);
+        pane.setPrefHeight(300);
+        Scene scene = new Scene(pane);
+        primaryStage.setTitle("Rheault Project 2");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        Controller instance = new Controller(painter);               
+        //Controller constructor with argument of painter instance
+    }
+
+}
+
+//controller.java class:
+
+//@author anon, course #
+package anonAssignment2;
+
+
+public class Controller extends Thread {
+    private Painter painter;
+    public Controller(Painter painter) {
+        this.painter = painter;
+        Painter.start();
+        }
+
+    public void run() {
+        while (true) {
+            painter.paint();
+            try {
+                Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    }
+            }
+        }
+    }
+
+
+''''
+
+====================  Details of Question number 3: ====================
+Tags = java,arrays,algorithm,
+owner's info : 
+{
+reputation=10
+user_id=6589158
+user_type=registered
+profile_image=https://www.gravatar.com/avatar/7edbab0222f002b48b142cfd16e372db?s=128&d=identicon&r=PG&f=1
+display_name=DaiSuki53
+link=https://stackoverflow.com/users/6589158/daisuki53
+accept_rate=100
+}
+is answered =False
+views =13
+score =0
+last_activity_date =1549645417
+creation_date =1549645417
+question_id =54597154
+link = https://stackoverflow.com/questions/54597154/algorithm-to-count-free-blocks-until-there-is-a-used-block
+title = Algorithm to count free blocks until there is a used block
+body =It exists a 2 Dimensional Array for a field of (x,y) length, here for instance 9x6. What I need to do here is to check how many free fields are around the Orange and Red Star. The black (filled) fields represent the occupied fields. In this example for instance I have 7 free fields for Orange, 1 for Red. I know that I can loop through each field and see whether one field is occupied or not, but how could I loop through so that I know that these non-occupied fields are next to the Star or in the Radius of the Star of non-occupied fields? I hope I could elaborate my question well.
+
+
+
+Field[][] fields = new Field[9][6];
+
+private void checkEmptyFields(Star star) {
+for (int i = 0; i &lt; 9; i++){ // Hardcoded size as an example
+ for (int j = 0; i &lt; 6; i++) {
+   if(fields[i][j].isOccupied())
+    { 
+     //It is occupied, but what now?
+    }
+  }
+ }
+}
+
+
+isOccupied Function:
+
+public boolean isOccupied(){
+return occupied;
+}
+
+
+I expect the output to be in this example Orange: 7, Red: 1 (because Red is blocked by the Orange Star and the occupied boxes)
+
+====================  Details of Question number 4: ====================
+Tags = java,osgi,
+owner's info : 
+{
+reputation=109
+user_id=3896698
+user_type=registered
+profile_image=https://www.gravatar.com/avatar/6c630e5e408ccb816cd64b4dcbc93fb5?s=128&d=identicon&r=PG&f=1
+display_name=Matthew Darton
+link=https://stackoverflow.com/users/3896698/matthew-darton
+accept_rate=69
+}
+is answered =False
+views =4
+score =0
+last_activity_date =1549645326
+creation_date =1549645326
+question_id =54597127
+link = https://stackoverflow.com/questions/54597127/solving-osgi-classloading-issues-with-jax-rs-clients
+title = Solving osgi classloading issues with jax-rs clients
+body =Imagine you have a module A which provides a static method that is used by module B. This method uses a jax-rs client to retrieve information from a webservice. The information is returned as a string. Module B is already a osgi bundle. Now module A also needs to be transformed to an osgi bundle but it is not allowed to change any code of it. So you can only add the required metadata to the manifest file. I did that and embedded all dependencies (including a jax-rs client) into a single jar file. Now, if module B calls the static method of module A I get a ClassNotFoundException since the classloader of module B is used to find the jax-rs client. I did some debugging and if I execute the line Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader()) in module A everything works, because now the classloader of module A is used and the client is found on the classpath of that module. Since I cannot change any code of module A this solution does not work for me. Does anyone has another hint for me how I can deal with these classloading issues?
+
+====================  Details of Question number 5: ====================
+Tags = java,android,django,android-studio,
+owner's info : 
+{
+reputation=21
+user_id=10328222
+user_type=registered
+profile_image=https://i.stack.imgur.com/74VKW.png?s=128&g=1
+display_name=Erick Y. Carreno
+link=https://stackoverflow.com/users/10328222/erick-y-carreno
+accept_rate=69
+}
+is answered =False
+views =4
+score =0
+last_activity_date =1549645247
+creation_date =1549645247
+question_id =54597099
+link = https://stackoverflow.com/questions/54597099/how-to-get-and-use-httpresponse-message-from-a-django-server
+title = How to get and use HTTPResponse message from a DJANGO server
+body =How can I get the response message returned from my DJANGO view and place it into a textview? Most of the answers talk about using Httpresponse but as I've read, it has be deprecated. I'm using SDK v28.
+
+Java code in Android Studio:
+
+private class HTTPAsyncTask_wdgt extends AsyncTask&lt;String, Void, String&gt; {
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
+                try {
+                    return HttpPost_wdgt(urls[0]);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return "Error!";
+                }
+            } catch (IOException e) {
+                return "Unable to retrieve web page. URL may be invalid.";
+            }
+        }
+    }
+
+private String HttpPost_wdgt(String myUrl) throws IOException, JSONException {
+
+    URL url = new URL(myUrl);
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+    conn.setDoOutput(true);
+    conn.setRequestMethod("POST");
+    conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+    JSONObject jsonObject = buildJsonObject_wdgt(); //Just takes some data from the app and returns JSON to be posted.
+    setPostRequestContent_wdgt(conn, jsonObject);
+
+    conn.connect();
+    return conn.getResponseMessage()+"";
+}
+
+private void setPostRequestContent_wdgt(HttpURLConnection conn,
+                                   JSONObject jsonObject) throws IOException {
+    OutputStream os = conn.getOutputStream();
+    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+    writer.write(jsonObject.toString());
+    writer.flush();
+    writer.close();
+
+    os.close();
+}
+
+
+Django view: (Right now it just returns 'mac' from the posted JSON)
+
+@csrf_exempt
+def req_exec(request):
+
+    ret = request.POST
+    data = json.loads(request.body)
+
+    return HttpResponse(data['mac'])
+
+
+====================  Details of Question number 6: ====================
+Tags = java,arrays,android-studio,jni,
+owner's info : 
+{
+reputation=5
+user_id=10857391
+user_type=registered
+profile_image=https://www.gravatar.com/avatar/52fd5655191d127b4ae2177f9b6e9825?s=128&d=identicon&r=PG&f=1
+display_name=Igor
+link=https://stackoverflow.com/users/10857391/igor
+accept_rate=69
+}
+is answered =False
+views =6
+score =0
+last_activity_date =1549645087
+creation_date =1549645087
+question_id =54597057
+link = https://stackoverflow.com/questions/54597057/in-jni-function-when-i-change-an-array-in-place-that-was-passed-from-java-code-t
+title = In JNI function when I change an Array in-place that was passed from Java code the Array doesn&#39;t modify
+body =I'm passing an int array from Java to native method. 
+Then within JNI function I created a pointer to int array with GetIntArrayElements() and pass as *isCopy argument JNI_FALSE. I supposed that this will not create a copy of the original array and I could modify array in place. Then I use ReleaseIntArrayElements() and pass as mode argument JNI_ABORT to just relese buffer. But that didn't work.
+
+From JNI documentation:
+
+
+mode 0: copy back the content and free the elems buffer
+mode JNI_COMMIT: copy back the content but do not free the elems buffer
+mode JNI_ABORT: free the buffer without copying back the possible changes
+
+
+That when I tried to use mode "0" in ReleaseIntArrayElements() that worked perfectly. But I don't understand why cause I didn't create a copy of the original array and mode "0" is copying back the content.
+
+I suppose that JNI always create a copy of the original array. But then *isCopy argument in GetIntArrayElements() lose its sense. So what really happening with this?
+
+THIS IS MY JNI FUCNTION
+
+extern "C" JNIEXPORT jdouble JNICALL
+Java_my_own_package_MainActivity_myFunction(
+    JNIEnv *env,
+    jobject /* this */, jintArray tbl) {
+    jint *tblptr = env-&gt;GetIntArrayElements(tbl, JNI_FALSE);
+    tblptr[0] = 0; //in-place change
+    env-&gt;ReleaseDoubleArrayElements(tb1, tblptr, JNI_ABORT);
+    return 0;
+}
+
+
+====================  Details of Question number 7: ====================
+Tags = java,loops,dictionary,
+owner's info : 
+{
+reputation=29
+user_id=9295739
+user_type=registered
+profile_image=https://www.gravatar.com/avatar/61e0da0dded30666b39651e3520a2f81?s=128&d=identicon&r=PG&f=1
+display_name=FranzSif
+link=https://stackoverflow.com/users/9295739/franzsif
+accept_rate=69
+}
+is answered =False
+views =20
+score =-1
+last_activity_date =1549645082
+creation_date =1549645082
+question_id =54597056
+link = https://stackoverflow.com/questions/54597056/how-to-iterate-a-dictionary-inside-a-list-in-java
+title = How to iterate a dictionary inside a list in Java?
+body =I have a dictionary printed in the console, it is inside a list, I want to iterate the dictionary, if all the values are 'P' (data: 'P') show 'true'; if one or more letters are different, show 'false'
+
+    Statement statement = connection.createStatement();
+    ResultSet rs = statement.executeQuery(selectSql);
+
+    JSONArray json = new JSONArray();
+    ResultSetMetaData rsmd = rs.getMetaData();
+
+    while(rs.next()) {
+        JSONObject obj = new JSONObject();
+
+        int numColumns = rsmd.getColumnCount();
+        for (int i=1; i&lt;=numColumns; i++) {
+            String column_name = rsmd.getColumnName(i);
+            obj.put(column_name, rs.getObject(column_name));
+        }
+
+        json.add(obj);
+    }
+
+    System.out.println(json);
+
+    Boolean result = true;
+
+
+If =
+
+[{"PMTSTS":"P"},{"PMTSTS":"P"},{"PMTSTS":"P"},{"PMTSTS":"P"},{"PMTSTS":"P"}]
+
+"true"
+
+If = 
+
+[{"PMTSTS":"O"},{"PMTSTS":"P"},{"PMTSTS":"P"},{"PMTSTS":"P"},{"PMTSTS":"P"}]
+
+"false"
+
+====================  Details of Question number 8: ====================
+Tags = java,playframework,playframework-2.3,
+owner's info : 
+{
+reputation=5293
+user_id=2377044
+user_type=registered
+profile_image=https://www.gravatar.com/avatar/7c220d9a4f38cc201c6b382e9c013f65?s=128&d=identicon&r=PG
+display_name=cnmuc
+link=https://stackoverflow.com/users/2377044/cnmuc
+accept_rate=31
+}
+is answered =False
+views =5
+score =-1
+last_activity_date =1549644891
+creation_date =1549644891
+question_id =54597009
+link = https://stackoverflow.com/questions/54597009/how-to-check-if-a-file-exists-in-a-play-framework-controller-using-java
+title = How to check if a file exists in a Play! Framework Controller using Java
+body =In a Play! Framework project there is a file: &lt;project_root&gt;\app\assets\javascripts\file.js
+
+In a play.mvc.Controller, how to check in Java weather this file exists or not? 
+
+The solution should work for both environments, development and production. 
+
+====================  Details of Question number 9: ====================
+Tags = java,python,compiler-optimization,
+owner's info : 
+{
+reputation=12
+user_id=2857809
+user_type=registered
+profile_image=https://www.gravatar.com/avatar/1737fb3abf2ac1ad0b579bbe99d03d22?s=128&d=identicon&r=PG&f=1
+display_name=piquick
+link=https://stackoverflow.com/users/2857809/piquick
+accept_rate=31
+}
+is answered =False
+views =10
+score =-2
+last_activity_date =1549644847
+creation_date =1549644847
+question_id =54596997
+link = https://stackoverflow.com/questions/54596997/compiler-optimizations-in-python-java
+title = Compiler optimizations in Python, Java
+body =Saw this code, questioned if python compiler clever enough to optimize it?
+
+l1 = sorted(lIn)
+l2 = [i for i in l1 if i&lt;0.5]
+
+
+I mean not iterating through all list, but to see if it is sorted and strip right part of the list(with elements bigger than 0.5) or, more possible, iterating only through part of the list
+
+What about java, C compilers?
+
+====================  Details of Question number 10: ====================
+Tags = java,windows,git,
+owner's info : 
+{
+reputation=10992
+user_id=63898
+user_type=registered
+profile_image=https://www.gravatar.com/avatar/88464b7b200398866f216092f01747ed?s=128&d=identicon&r=PG
+display_name=user63898
+link=https://stackoverflow.com/users/63898/user63898
+accept_rate=64
+}
+is answered =False
+views =5
+score =0
+last_activity_date =1549644756
+creation_date =1549644756
+question_id =54596967
+link = https://stackoverflow.com/questions/54596967/java-trying-to-execute-git-command-from-mingw32
+title = Java trying to execute git command from mingw32
+body =i try to execute git command which is installed in my windows 
+(bitbucket mingw32 git ) 
+
+the command:
+
+String remote="https://"+user_name+"@bitbucket.org/myproject/my_project.git";
+Utils.runCommand(C:\\Users\\My\\AppData\\Local\\Atlassian\\SourceTree\\git_local\\mingw32\\bin, "git","-C","c:/product/my_project,"clone","-b","develop",remote);
+
+
+the code which execute the git :
+
+public static void runCommand(Path directory, String... command) throws IOException, InterruptedException {
+        Objects.requireNonNull(directory, "directory");
+        if (!Files.exists(directory)) {
+            throw new RuntimeException("can't run command in non-existing directory '" + directory + "'");
+        }
+        ProcessBuilder pb = new ProcessBuilder()
+                .command(command)
+                .directory(directory.toFile());
+        Process p = pb.start();
+        StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "ERROR");
+        StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), "OUTPUT");
+        outputGobbler.start();
+        errorGobbler.start();
+        int exit = p.waitFor();
+        errorGobbler.join();
+        outputGobbler.join();
+        if (exit != 0) {
+            throw new AssertionError(String.format("runCommand returned %d", exit));
+        }
+    }
+
+    private static class StreamGobbler extends Thread {
+
+        private final InputStream is;
+        private final String type;
+
+        private StreamGobbler(InputStream is, String type) {
+            this.is = is;
+            this.type = type;
+        }
+
+        @Override
+        public void run() {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is));) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    System.out.println(type + "&gt; " + line);
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+
+
+getting error:
+
+ERROR&gt; Cloning into 'my_project'...
+ERROR&gt; bash: /dev/tty: No such device or address
+ERROR&gt; error: failed to execute prompt script (exit code 1)
+ERROR&gt; fatal: could not read Password for 'https://user@bitbucket.org': Invalid argument
+Exception in thread "main" java.lang.AssertionError: runCommand returned 128
+    at Utils.runCommand(Utils.java:71)
+    at GIT.cloneFolder(GIT.java:20)
+    at ProductAssistManager.cloneFolders(ProductManager.java:28)
+    at ProductAssistManager.execute(ProductManager.java:13)
+    at PBump.main(tester.java:38)
+
+

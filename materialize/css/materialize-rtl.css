@@ -1,0 +1,58 @@
+/*!
+ * Materialize-Rtl v0.100.2 (http://Pgraph.ir)
+ * Copyright 2017 Pgraph
+ */
+    body{font-family: IRANSansWeb,sans-serif;direction: rtl;height: 100%;width:100%;}
+	/* fallback */
+	@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../../fonts/materialicons.woff2') format('woff2');}
+    @font-face {
+    font-family: 'IRANSansWeb';
+    src: url('../../fonts/IRANSansWeb.eot?#') format('eot'),  /* IE6�8 */
+    url('../../fonts/IRANSansWeb.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('../../fonts/IRANSansWeb.woff') format('woff2'), 	
+	url('../../fonts/IRANSansWeb.ttf') format('truetype');  /* Saf3�5, Chrome4+, FF3.5, Opera 10+ */}
+	.material-icons {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;}
+	.side-nav{right: 0px;left: unset !important;}
+	.side-nav .user-view, .side-nav .userView{direction: rtl;text-align: -webkit-center;background-color: rgba(0, 0, 0, 0.35);}
+	.side-nav li{direction: rtl;text-align: center;}
+	.side-nav li > a > i, .side-nav li > a > [class^="mdi-"], .side-nav li > a li > a > [class*="mdi-"], .side-nav li > a > i.material-icons{float: right !important;margin: 0 0 0 10px !important;}
+	.row .col{float:right !important;}
+	/* Text inputs */
+	input:not([type]),
+	input[type=text]:not(.browser-default),
+	input[type=password]:not(.browser-default),
+	input[type=email]:not(.browser-default),
+	input[type=url]:not(.browser-default),
+	input[type=time]:not(.browser-default),
+	input[type=date]:not(.browser-default),
+	input[type=datetime]:not(.browser-default),
+	input[type=datetime-local]:not(.browser-default),
+	input[type=tel]:not(.browser-default),
+	input[type=number]:not(.browser-default),
+	input[type=number]:not(.browser-default),
+	input[type=search]:not(.browser-default),
+	textarea.materialize-textarea {text-align: center;direction: rtl;}
+	.input-field.col label{text-align: center; direction: rtl;left: unset !important;right: 0.75rem;}
+	.input-field label:not(.label-icon).active {-webkit-transform: translateY(-14px) scale(1) !important;transform: translateY(-14px) scale(1) !important;}
+	.modal h1, .modal h2, .modal h3, .modal h4, form p{text-align:center !important;}
+	h1, h2, h3, h4, h5, h6, select{direction:rtl;}
+	#mceu_42{display:none;}
+	.mce-fullscreen{z-index:999 !important;}
+	.input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .autocomplete-content{margin-right: 3rem !important;margin-left:0px !important;}

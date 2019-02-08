@@ -1,0 +1,449 @@
+====================  Details of Question number 1: ==================== 
+Tags = java,c++,performance,optimization,branch-prediction,
+owner's info : 
+{
+reputation=299770
+user_id=87234
+user_type=registered
+accept_rate=100
+profile_image=https://i.stack.imgur.com/FkjBe.png?s=128&g=1
+display_name=GManNickG
+link=https://stackoverflow.com/users/87234/gmannickg
+}
+is answered =True
+views =1307296
+score =22548
+last_activity_date =1548750384
+creation_date =1340805096
+question_id =11227809
+link = https://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array
+title = Why is it faster to process a sorted array than an unsorted array?
+body =<p>Here is a piece of C++ code that seems very peculiar. For some strange reason, sorting the data miraculously makes the code almost six times faster.</p>
+
+<pre class="lang-cpp prettyprint-override"><code>#include &lt;algorithm&gt;
+#include &lt;ctime&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    // Generate data
+    const unsigned arraySize = 32768;
+    int data[arraySize];
+
+    for (unsigned c = 0; c &lt; arraySize; ++c)
+        data[c] = std::rand() % 256;
+
+    // !!! With this, the next loop runs faster
+    std::sort(data, data + arraySize);
+
+    // Test
+    clock_t start = clock();
+    long long sum = 0;
+
+    for (unsigned i = 0; i &lt; 100000; ++i)
+    {
+        // Primary loop
+        for (unsigned c = 0; c &lt; arraySize; ++c)
+        {
+            if (data[c] &gt;= 128)
+                sum += data[c];
+        }
+    }
+
+    double elapsedTime = static_cast&lt;double&gt;(clock() - start) / CLOCKS_PER_SEC;
+
+    std::cout &lt;&lt; elapsedTime &lt;&lt; std::endl;
+    std::cout &lt;&lt; "sum = " &lt;&lt; sum &lt;&lt; std::endl;
+}
+</code></pre>
+
+<ul>
+<li>Without <code>std::sort(data, data + arraySize);</code>, the code runs in 11.54 seconds.</li>
+<li>With the sorted data, the code runs in 1.93 seconds.</li>
+</ul>
+
+<p>Initially, I thought this might be just a language or compiler anomaly. So I tried it in Java.</p>
+
+<pre class="lang-java prettyprint-override"><code>import java.util.Arrays;
+import java.util.Random;
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        // Generate data
+        int arraySize = 32768;
+        int data[] = new int[arraySize];
+
+        Random rnd = new Random(0);
+        for (int c = 0; c &lt; arraySize; ++c)
+            data[c] = rnd.nextInt() % 256;
+
+        // !!! With this, the next loop runs faster
+        Arrays.sort(data);
+
+        // Test
+        long start = System.nanoTime();
+        long sum = 0;
+
+        for (int i = 0; i &lt; 100000; ++i)
+        {
+            // Primary loop
+            for (int c = 0; c &lt; arraySize; ++c)
+            {
+                if (data[c] &gt;= 128)
+                    sum += data[c];
+            }
+        }
+
+        System.out.println((System.nanoTime() - start) / 1000000000.0);
+        System.out.println("sum = " + sum);
+    }
+}
+</code></pre>
+
+<p>With a somewhat similar but less extreme result.</p>
+
+<hr>
+
+<p>My first thought was that sorting brings the data into the cache, but then I thought how silly that is because the array was just generated.</p>
+
+<ul>
+<li>What is going on?</li>
+<li>Why is it faster to process a sorted array than an unsorted array?</li>
+<li>The code is summing up some independent terms, and the order should not matter.</li>
+</ul>
+
+====================  Details of Question number 2: ==================== 
+Tags = java,date,timezone,
+owner's info : 
+{
+reputation=77099
+user_id=342235
+user_type=registered
+accept_rate=77
+profile_image=https://www.gravatar.com/avatar/88e5a9eb011a73ab970ddc8cfb05ff85?s=128&d=identicon&r=PG
+display_name=Freewind
+link=https://stackoverflow.com/users/342235/freewind
+}
+is answered =True
+views =581631
+score =6284
+last_activity_date =1549531790
+creation_date =1311754558
+question_id =6841333
+link = https://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result
+title = Why is subtracting these two times (in 1927) giving a strange result?
+body =<p>If I run the following program, which parses two date strings referencing times 1 second apart and compares them:</p>
+
+<pre><code>public static void main(String[] args) throws ParseException {
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+    String str3 = "1927-12-31 23:54:07";  
+    String str4 = "1927-12-31 23:54:08";  
+    Date sDt3 = sf.parse(str3);  
+    Date sDt4 = sf.parse(str4);  
+    long ld3 = sDt3.getTime() /1000;  
+    long ld4 = sDt4.getTime() /1000;
+    System.out.println(ld4-ld3);
+}
+</code></pre>
+
+<p><strong>The output is:</strong></p>
+
+<blockquote>
+  <p>353</p>
+</blockquote>
+
+<p>Why is <code>ld4-ld3</code> not <code>1</code> (as I would expect from the one-second difference in the times), but <code>353</code>?</p>
+
+<p>If I change the dates to times 1 second later:</p>
+
+<pre><code>String str3 = "1927-12-31 23:54:08";  
+String str4 = "1927-12-31 23:54:09";  
+</code></pre>
+
+<p>Then <code>ld4-ld3</code> will be <code>1</code>.</p>
+
+<hr>
+
+<p><strong>Java version:</strong></p>
+
+<pre class="lang-none prettyprint-override"><code>java version "1.6.0_22"
+Java(TM) SE Runtime Environment (build 1.6.0_22-b04)
+Dynamic Code Evolution Client VM (build 0.2-b02-internal, 19.0-b04-internal, mixed mode)
+
+Timezone(`TimeZone.getDefault()`):
+
+sun.util.calendar.ZoneInfo[id="Asia/Shanghai",
+offset=28800000,dstSavings=0,
+useDaylight=false,
+transitions=19,
+lastRule=null]
+
+Locale(Locale.getDefault()): zh_CN
+</code></pre>
+
+====================  Details of Question number 3: ==================== 
+Tags = java,methods,parameter-passing,pass-by-reference,pass-by-value,
+owner's info : 
+{
+reputation=2345
+user_id=4315
+user_type=registered
+accept_rate=77
+profile_image=https://www.gravatar.com/avatar/88e5a9eb011a73ab970ddc8cfb05ff85?s=128&d=identicon&r=PG
+display_name=user4315
+link=https://stackoverflow.com/users/4315/user4315
+}
+is answered =True
+views =1726770
+score =5723
+last_activity_date =1548869450
+creation_date =1220386469
+question_id =40480
+link = https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value
+title = Is Java &quot;pass-by-reference&quot; or &quot;pass-by-value&quot;?
+body =<p>I always thought Java was <strong>pass-by-reference</strong>.</p>
+
+<p>However, I've seen a couple of blog posts (for example, <a href="http://javadude.com/articles/passbyvalue.htm" rel="noreferrer">this blog</a>) that claim that it isn't.</p>
+
+<p>I don't think I understand the distinction they're making. </p>
+
+<p>What is the explanation?</p>
+
+====================  Details of Question number 4: ==================== 
+Tags = java,object,nullpointerexception,null,
+owner's info : 
+{
+reputation=1912
+user_id=34856
+user_type=registered
+accept_rate=77
+profile_image=https://www.gravatar.com/avatar/1e57ced4476e0c629c70e6058159c4f0?s=128&d=identicon&r=PG
+display_name=Goran Martinic
+link=https://stackoverflow.com/users/34856/goran-martinic
+}
+is answered =True
+views =1122165
+score =3722
+last_activity_date =1546549435
+creation_date =1226046700
+question_id =271526
+link = https://stackoverflow.com/questions/271526/avoiding-null-statements
+title = Avoiding != null statements
+body =<p>I use <code>object != null</code> a lot to avoid <a href="https://docs.oracle.com/javase/9/docs/api/java/lang/NullPointerException.html" rel="noreferrer"><code>NullPointerException</code></a>.</p>
+
+<p>Is there a good alternative to this? </p>
+
+<p>For example:</p>
+
+<pre><code>if (someobject != null) {
+    someobject.doCalc();
+}
+</code></pre>
+
+<p>This avoids a <code>NullPointerException</code>, when it is unknown if the object is <code>null</code> or not.</p>
+
+<p>Note that the accepted answer may be out of date, see <a href="https://stackoverflow.com/a/2386013/12943">https://stackoverflow.com/a/2386013/12943</a> for a more recent approach.</p>
+
+====================  Details of Question number 5: ==================== 
+Tags = java,string,io,stream,inputstream,
+owner's info : 
+{
+reputation=18019
+user_id=16616
+user_type=registered
+accept_rate=100
+profile_image=https://i.stack.imgur.com/PNeie.png?s=128&g=1
+display_name=Johnny Maelstrom
+link=https://stackoverflow.com/users/16616/johnny-maelstrom
+}
+is answered =True
+views =1851865
+score =3513
+last_activity_date =1547740036
+creation_date =1227286060
+question_id =309424
+link = https://stackoverflow.com/questions/309424/how-do-i-read-convert-an-inputstream-into-a-string-in-java
+title = How do I read / convert an InputStream into a String in Java?
+body =<p>If you have a <code>java.io.InputStream</code> object, how should you process that object and produce a <code>String</code>?</p>
+
+<hr>
+
+<p>Suppose I have an <code>InputStream</code> that contains text data, and I want to convert it to a <code>String</code>, so for example I can write that to a log file.</p>
+
+<p>What is the easiest way to take the <code>InputStream</code> and convert it to a <code>String</code>?</p>
+
+<pre><code>public String convertStreamToString(InputStream is) {
+    // ???
+}
+</code></pre>
+
+====================  Details of Question number 6: ==================== 
+Tags = java,casting,operators,variable-assignment,assignment-operator,
+owner's info : 
+{
+reputation=16845
+user_id=1127571
+user_type=registered
+accept_rate=71
+profile_image=https://www.gravatar.com/avatar/00735aa8e45c6a3f4a79efe9cf689e40?s=128&d=identicon&r=PG
+display_name=Honza Brabec
+link=https://stackoverflow.com/users/1127571/honza-brabec
+}
+is answered =True
+views =261879
+score =3404
+last_activity_date =1546671033
+creation_date =1325585432
+question_id =8710619
+link = https://stackoverflow.com/questions/8710619/why-dont-javas-compound-assignment-operators-require-casting
+title = Why don&#39;t Java&#39;s +=, -=, *=, /= compound assignment operators require casting?
+body =<p>Until today, I thought that for example:</p>
+
+<pre><code>i += j;
+</code></pre>
+
+<p>Was just a shortcut for:</p>
+
+<pre><code>i = i + j;
+</code></pre>
+
+<p>But if we try this:</p>
+
+<pre><code>int i = 5;
+long j = 8;
+</code></pre>
+
+<p>Then <code>i = i + j;</code> will not compile but <code>i += j;</code> will compile fine.</p>
+
+<p>Does it mean that in fact <code>i += j;</code> is a shortcut for something like this
+<code>i = (type of i) (i + j)</code>?</p>
+
+====================  Details of Question number 7: ==================== 
+Tags = java,collections,hashmap,hashtable,
+owner's info : 
+{
+reputation=20279
+user_id=4316
+user_type=registered
+accept_rate=100
+profile_image=https://www.gravatar.com/avatar/dc91d4e8c035283347ba673168770cea?s=128&d=identicon&r=PG
+display_name=dmanxiii
+link=https://stackoverflow.com/users/4316/dmanxiii
+}
+is answered =True
+views =1353425
+score =3342
+last_activity_date =1545962718
+creation_date =1220386320
+question_id =40471
+link = https://stackoverflow.com/questions/40471/differences-between-hashmap-and-hashtable
+title = Differences between HashMap and Hashtable?
+body =<p>What are the differences between a <a href="http://docs.oracle.com/javase/8/docs/api/index.html?java/util/HashMap.html" rel="noreferrer"><code>HashMap</code></a> and a <a href="http://docs.oracle.com/javase/8/docs/api/index.html?java/util/Hashtable.html" rel="noreferrer"><code>Hashtable</code></a> in Java?</p>
+
+<p>Which is more efficient for non-threaded applications?</p>
+
+====================  Details of Question number 8: ==================== 
+Tags = java,android,usermanager,
+owner's info : 
+{
+reputation=47207
+user_id=542091
+user_type=registered
+accept_rate=92
+profile_image=https://i.stack.imgur.com/rQ7vZ.jpg?s=128&g=1
+display_name=Ovidiu Latcu
+link=https://stackoverflow.com/users/542091/ovidiu-latcu
+}
+is answered =True
+views =284660
+score =3306
+last_activity_date =1548155258
+creation_date =1352882041
+question_id =13375357
+link = https://stackoverflow.com/questions/13375357/proper-use-cases-for-android-usermanager-isuseragoat
+title = Proper use cases for Android UserManager.isUserAGoat()?
+body =<p>I was looking at the new APIs introduced in <a href="http://en.wikipedia.org/wiki/Android_version_history#Android_4.1.2F4.2_Jelly_Bean" rel="noreferrer">Android 4.2</a>.
+While looking at the <a href="http://developer.android.com/reference/android/os/UserManager.html" rel="noreferrer"><code>UserManager</code></a> class I came across the following method:</p>
+
+<blockquote>
+<pre><code>public boolean isUserAGoat()
+</code></pre>
+  
+  <p>Used to determine whether the user making this call is subject to teleportations.</p>
+  
+  <p>Returns whether the user making this call is a goat.</p>
+</blockquote>
+
+<p>How and when should this be used?</p>
+
+====================  Details of Question number 9: ==================== 
+Tags = java,arrays,arraylist,type-conversion,
+owner's info : 
+{
+reputation=22599
+user_id=939
+user_type=registered
+accept_rate=81
+profile_image=https://www.gravatar.com/avatar/ce6d3fed32e985093a107913c3762579?s=128&d=identicon&r=PG
+display_name=Ron Tuffin
+link=https://stackoverflow.com/users/939/ron-tuffin
+}
+is answered =True
+views =1333619
+score =3188
+last_activity_date =1547599822
+creation_date =1222871912
+question_id =157944
+link = https://stackoverflow.com/questions/157944/create-arraylist-from-array
+title = Create ArrayList from array
+body =<p>I have an array that is initialized like:</p>
+
+<pre><code>Element[] array = {new Element(1), new Element(2), new Element(3)};
+</code></pre>
+
+<p>I would like to convert this array into an object of the ArrayList class.</p>
+
+<pre><code>ArrayList&lt;Element&gt; arraylist = ???;
+</code></pre>
+
+====================  Details of Question number 10: ==================== 
+Tags = java,random,integer,
+owner's info : 
+{
+reputation=18974
+user_id=42155
+user_type=registered
+accept_rate=22
+profile_image=https://www.gravatar.com/avatar/bec1c77805ad9d7e6b1dca098442e984?s=128&d=identicon&r=PG
+display_name=user42155
+link=https://stackoverflow.com/users/42155/user42155
+}
+is answered =True
+views =3678309
+score =3106
+last_activity_date =1549635320
+creation_date =1229106057
+question_id =363681
+link = https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
+title = How do I generate random integers within a specific range in Java?
+body =<p>How do I generate a random <code>int</code> value in a specific range?</p>
+
+<p>I have tried the following, but those do not work:</p>
+
+<p><strong>Attempt 1:</strong></p>
+
+<pre><code>randomNum = minimum + (int)(Math.random() * maximum);
+// Bug: `randomNum` can be bigger than `maximum`.
+</code></pre>
+
+<p><strong>Attempt 2:</strong></p>
+
+<pre><code>Random rn = new Random();
+int n = maximum - minimum + 1;
+int i = rn.nextInt() % n;
+randomNum =  minimum + i;
+// Bug: `randomNum` can be smaller than `minimum`.
+</code></pre>
+

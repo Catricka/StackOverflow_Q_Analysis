@@ -1,0 +1,7 @@
+.body {
+    background-image: url(../../img/pic.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #a94e54;
+}
